@@ -16,7 +16,28 @@
 
 <body>
 
+
+
 <div class="container">
+    @guest
+        <div class="d-flex justify-content-end pt-5">
+            @if (Route::has('login'))
+                    <a class="btn btn btn-success me-2" href="{{ route('login') }}">{{ __('Login') }}</a>
+            @endif
+
+            @if (Route::has('register'))
+                    <a class="btn btn btn-danger" href="{{ route('register') }}">{{ __('Register') }}</a>
+            @endif
+        </div>
+    @else
+        <div class="d-flex justify-content-end pt-5">
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit" class="btn btn btn-primary">Вийти</button>
+            </form>
+        </div>
+    @endguest
+
 
     <h2 class="mb-4">Порядок денний</h2>
 
@@ -80,7 +101,7 @@
                         <div class="row mb-3">
                             <label for="edit_title" class="col-sm-2 col-form-label">Назва</label>
                             <div class="col-sm-10">
-                                <input type="text" name="edit_title" class="form-control" id="edit_title" placeholder="Título do evento">
+                                <input type="text" name="edit_title" class="form-control" id="edit_title" placeholder="Назва події">
                             </div>
                         </div>
 
