@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
     <link href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css' rel='stylesheet'>
 
@@ -17,24 +18,34 @@
 <body>
 
 
-
 <div class="container">
     @guest
         <div class="d-flex justify-content-end pt-5">
             @if (Route::has('login'))
-                    <a class="btn btn btn-success me-2" href="{{ route('login') }}">{{ __('Login') }}</a>
+                <a class="btn btn btn-success me-2" href="{{ route('login') }}">{{ __('Вхід') }}</a>
             @endif
 
             @if (Route::has('register'))
-                    <a class="btn btn btn-danger" href="{{ route('register') }}">{{ __('Register') }}</a>
+                <a class="btn btn btn-danger" href="{{ route('register') }}">{{ __('Реєстрація') }}</a>
             @endif
         </div>
     @else
-        <div class="d-flex justify-content-end pt-5">
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button type="submit" class="btn btn btn-primary">Вийти</button>
-            </form>
+
+        <div class="d-flex justify-content-end pt-5 pe-5">
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="userDropdown"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                    {{ Auth::user()->name }}
+                </button>
+                <ul class="dropdown-menu p-1" aria-labelledby="userDropdown" style="min-width: auto; width: auto;">
+                    <li>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="dropdown-item text-danger btn-sm px-2 py-1">Вийти</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
         </div>
     @endguest
 
@@ -67,24 +78,24 @@
 
                     <dl class="row">
 
-                        <dt class="col-sm-3">ID: </dt>
+                        <dt class="col-sm-3">ID:</dt>
                         <dd class="col-sm-9" id="visualizar_id"></dd>
 
-                        <dt class="col-sm-3">Назва: </dt>
+                        <dt class="col-sm-3">Назва:</dt>
                         <dd class="col-sm-9" id="visualizar_title"></dd>
 
-                        <dt class="col-sm-3">Опис: </dt>
+                        <dt class="col-sm-3">Опис:</dt>
                         <dd class="col-sm-9" id="visualizar_obs"></dd>
 
-                        <dt class="col-sm-3">Початок: </dt>
+                        <dt class="col-sm-3">Початок:</dt>
                         <dd class="col-sm-9" id="visualizar_start"></dd>
 
-                        <dt class="col-sm-3">Кінець: </dt>
+                        <dt class="col-sm-3">Кінець:</dt>
                         <dd class="col-sm-9" id="visualizar_end"></dd>
 
                     </dl>
 
-                    <button type="button" class="btn btn-warning" id="btnViewEditEvento">Редагувати </button>
+                    <button type="button" class="btn btn-warning" id="btnViewEditEvento">Редагувати</button>
 
                     <button type="button" class="btn btn-danger" id="btnApagarEvento">Видалити</button>
 
@@ -101,14 +112,16 @@
                         <div class="row mb-3">
                             <label for="edit_title" class="col-sm-2 col-form-label">Назва</label>
                             <div class="col-sm-10">
-                                <input type="text" name="edit_title" class="form-control" id="edit_title" placeholder="Назва події">
+                                <input type="text" name="edit_title" class="form-control" id="edit_title"
+                                       placeholder="Назва події">
                             </div>
                         </div>
 
                         <div class="row mb-3">
                             <label for="edit_obs" class="col-sm-2 col-form-label">Опис</label>
                             <div class="col-sm-10">
-                                <input type="text" name="edit_obs" class="form-control" id="edit_obs" placeholder="Опис події">
+                                <input type="text" name="edit_obs" class="form-control" id="edit_obs"
+                                       placeholder="Опис події">
                             </div>
                         </div>
 
@@ -145,9 +158,11 @@
                             </div>
                         </div>
 
-                        <button type="button" name="btnViewEvento" class="btn btn-primary" id="btnViewEvento">Календар</button>
+                        <button type="button" name="btnViewEvento" class="btn btn-primary" id="btnViewEvento">Календар
+                        </button>
 
-                        <button type="submit" name="btnEditEvento" class="btn btn-warning" id="btnEditEvento">Зберегти</button>
+                        <button type="submit" name="btnEditEvento" class="btn btn-warning" id="btnEditEvento">Зберегти
+                        </button>
 
                     </form>
 
@@ -175,14 +190,16 @@
                     <div class="row mb-3">
                         <label for="cad_title" class="col-sm-2 col-form-label">Назва</label>
                         <div class="col-sm-10">
-                            <input type="text" name="cad_title" class="form-control" id="cad_title" placeholder="Назва події">
+                            <input type="text" name="cad_title" class="form-control" id="cad_title"
+                                   placeholder="Назва події">
                         </div>
                     </div>
 
                     <div class="row mb-3">
                         <label for="cad_obs" class="col-sm-2 col-form-label">Опис</label>
                         <div class="col-sm-10">
-                            <input type="text" name="cad_obs" class="form-control" id="cad_obs" placeholder="Опис події">
+                            <input type="text" name="cad_obs" class="form-control" id="cad_obs"
+                                   placeholder="Опис події">
                         </div>
                     </div>
 
@@ -219,7 +236,8 @@
                         </div>
                     </div>
 
-                    <button type="submit" name="btnCadEvento" class="btn btn-success" id="btnCadEvento">Зберегти</button>
+                    <button type="submit" name="btnCadEvento" class="btn btn-success" id="btnCadEvento">Зберегти
+                    </button>
 
                 </form>
 
@@ -228,11 +246,16 @@
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
 <script src={{asset('js/index.global.min.js')}}></script>
 <script src={{asset("js/bootstrap5/index.global.min.js")}}></script>
 <script src={{asset('js/core/locales-all.global.min.js')}}></script>
 <script src={{asset('js/custom.js')}}></script>
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
 
 </body>
 

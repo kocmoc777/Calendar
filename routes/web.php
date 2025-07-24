@@ -15,9 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/',function (){
-    return redirect('/home');
+    return redirect('/calendar');
 });
-Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/calendar', [EventController::class, '__invoke'])->name('index');     // Отримати одну подію
 Route::get('/events/{id}', [EventController::class, 'show'])->name('show');     // Отримати одну подію
 Route::post('/event/store', [EventController::class, 'store']);
